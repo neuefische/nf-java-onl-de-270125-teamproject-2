@@ -1,0 +1,14 @@
+GET: /api/workout
+GET: /api/workout/{id}
+POST: /api/workout
+PUT: /api/workout/{id}
+DELETE: /api/workout/{id}
+
+Frontend:
+Home
+WorkoutCard
+WorkoutOverview
+WorkoutDetails
+AddWorkout
+UpdateWorkout
+
