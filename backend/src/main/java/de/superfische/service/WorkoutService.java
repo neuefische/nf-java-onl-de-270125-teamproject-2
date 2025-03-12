@@ -1,11 +1,10 @@
 package de.superfische.service;
 
+import de.superfische.model.Workout;
 import de.superfische.model.IdService;
-import de.superfische.model.Workout;
-import de.superfische.model.Workout;
 import de.superfische.repository.WorkoutRepository;
 import org.springframework.stereotype.Service;
-
+import java.util.NoSuchElementException;
 import java.util.List;
 
 @Service
@@ -26,6 +25,12 @@ public class WorkoutService {
         workoutRepository.insert(workout);
 
         return workout;
+    }
+
+    public Workout findWorkoutById(String id) {
+
+        return workoutRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Workout with id: " + id + " not found!"));
+
     }
 
     public void deleteWorkout(String id) {
