@@ -16,11 +16,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class WorkoutControllerIntegrationTest {
+public class WorkoutControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -30,11 +33,27 @@ class WorkoutControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    void findWorkoutById() throws Exception {
+        // GIVEN
+        Workout existingWorkout = new Workout("1", "Testdescription", "My Workoutname", "https://superfische.der-supernerd.de/image1.png");
+        workoutRepository.save(existingWorkout);
     void deleteWorkout_shouldReturnNoContent_whenWorkoutExists() throws Exception {
 
+        // WHEN
+        mockMvc.perform(get("/api/workout/1"))
         Workout workout = new Workout("test-id", "Test description", "Test Workout", "path/to/image");
         workoutRepository.save(workout);
 
+        //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                            {
+                                "id": "1",
+                                "description": "Testdescription",
+                                "workoutName": "My Workoutname",
+                                "imagePath": "https://superfische.der-supernerd.de/image1.png"
+                            }
+                        """));
         mockMvc.perform(delete("/api/workout/{id}", "test-id"))
                 .andExpect(status().isNoContent());
 
@@ -43,8 +62,14 @@ class WorkoutControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    void findWorkoutById_WhenWorkoutNotFound_thenStatus404() throws Exception {
+        //GIVEN
     void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() throws Exception {
 
+        //WHEN
+        mockMvc.perform(get("/api/workout/1"))
+
+        //THEN
         mockMvc.perform(delete("/api/workout/{id}", "nonexistent-id"))
                 .andExpect(status().isNotFound());
 
