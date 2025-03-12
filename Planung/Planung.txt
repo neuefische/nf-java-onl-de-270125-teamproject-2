@@ -1,14 +1,42 @@
 GET: /api/workout
+Input: nix
+Output: Workout[], Statuscode: 200 OK
+
 GET: /api/workout/{id}
+pathVariable: id
+Output: Workout, Statuscode: 200 OK / 404 not found
+
 POST: /api/workout
+Input: Workout im body
+Output: Workout, Statuscode: 201 created
+
 PUT: /api/workout/{id}
+pathVariable: id
+Input: Workout
+Output: Workout, Statuscode: 202 accepted / 404 not found
+
 DELETE: /api/workout/{id}
+pathVariable: id
+Output: Statuscode: 204 no content / 404 not found
 
 Frontend:
+
 Home
+
+Header
+
 WorkoutCard
+Props: Workout
+
 WorkoutOverview
+Props: Workout[]
+
 WorkoutDetails
+Props: Workout
+
 AddWorkout
+Props: callbackFunction(workout Workout) => void
+
 UpdateWorkout
+Props: Workout, callbackFunction(workout Workout) => void
 
