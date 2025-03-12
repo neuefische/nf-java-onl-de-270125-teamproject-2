@@ -20,10 +20,23 @@ pathVariable: id
 Output: Statuscode: 204 no content / 404 not found
 
 Frontend:
+
 Home
+
+Header
+
 WorkoutCard
+Props: Workout
+
 WorkoutOverview
+Props: Workout[]
+
 WorkoutDetails
+Props: Workout
+
 AddWorkout
+Props: callbackFunction(workout Workout) => void
+
 UpdateWorkout
+Props: Workout, callbackFunction(workout Workout) => void
 
