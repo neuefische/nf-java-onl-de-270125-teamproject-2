@@ -20,12 +20,6 @@ public class WorkoutController {
         this.workoutService = workoutService;
     }
 
-//    @GetMapping("/workout/{id}")
-//    public Workout findWorkoutById(@PathVariable String id) {
-//
-//        return workoutService.findWorkoutById(id);
-//    }
-
     @GetMapping("/workout/{id}")
     public ResponseEntity<Workout> findWorkoutById(@PathVariable String id) {
 
