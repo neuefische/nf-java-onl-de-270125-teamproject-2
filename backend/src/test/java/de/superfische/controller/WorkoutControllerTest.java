@@ -1,6 +1,5 @@
 package de.superfische.controller;
 
-import de.superfische.repository.WorkoutRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ class WorkoutControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    WorkoutRepository workoutRepository;
-
     @Test
     @DirtiesContext
     void addWorkout() {
@@ -39,7 +35,7 @@ class WorkoutControllerTest {
                                  "id": "myTestID",
                                  "description": "myTestDescription",
                                  "workoutName": "myWorkoutName",
-                                 "imagePath": "c:/test/path/image.jpg"                            
+                                 "imagePath": "c:/test/path/image.jpg"
                             }
                             """))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -47,8 +43,7 @@ class WorkoutControllerTest {
                             {
                                  "description": "myTestDescription",
                                  "workoutName": "myWorkoutName",
-                                 "imagePath": "c:/test/path/image.jpg"                            
-                            }
+                                 "imagePath": "c:/test/path/image.jpg"                            }
                             """))
                     .andExpect(jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
