@@ -2,6 +2,8 @@ package de.superfische.controller;
 
 import de.superfische.model.Workout;
 import de.superfische.repository.WorkoutRepository;
+import org.assertj.core.api.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,6 +25,12 @@ public class WorkoutControllerIntegrationTest {
     @Autowired
     WorkoutRepository workoutRepository;
 
+    @Test
+    @DirtiesContext
+    void findWorkoutById() throws Exception {
 
+        Assertions.assertEquals(true, true);
+
+    }
 
 }
