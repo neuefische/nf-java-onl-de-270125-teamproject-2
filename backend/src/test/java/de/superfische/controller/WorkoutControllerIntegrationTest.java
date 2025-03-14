@@ -38,6 +38,7 @@ class WorkoutControllerIntegrationTest {
     @DirtiesContext
     void addWorkout() {
         // given: Nothing but the class members
+        // mocked repository not needed
 
         // when + then
         try {
