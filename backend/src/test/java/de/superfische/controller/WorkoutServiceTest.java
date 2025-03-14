@@ -16,8 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(WorkoutController.class)
-public class WorkoutControllerTest {
-
+public class WorkoutServiceTest {
     @Autowired
     private MockMvc mockMvc;
 
