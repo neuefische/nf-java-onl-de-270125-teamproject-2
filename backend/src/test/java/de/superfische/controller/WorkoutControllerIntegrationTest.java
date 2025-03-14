@@ -38,7 +38,7 @@ class WorkoutControllerIntegrationTest {
     @DirtiesContext
     void addWorkout() {
         // given: Nothing but the class members
-        // mocked repository not needed
+        // mocked repository not needed for post mapping
 
         // when + then
         try {
