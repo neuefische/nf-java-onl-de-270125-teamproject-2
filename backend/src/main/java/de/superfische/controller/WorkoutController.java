@@ -16,7 +16,7 @@ public class WorkoutController {
         this.workoutService = workoutService;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/workout/{id}")
     public ResponseEntity<Void> deleteWorkout(@PathVariable String id) {
         try {
             workoutService.deleteWorkout(id);
