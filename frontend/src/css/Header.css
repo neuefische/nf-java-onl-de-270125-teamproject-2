@@ -1,0 +1,20 @@
+.container-home-image {
+
+    max-height: 800px;
+    overflow: hidden;
+    > img {
+        width: 100vw;
+    }
+}
+
+.logo {
+    position: absolute;
+    top: 200px;
+    right: 80px;
+    width: 200px;
+    height: auto;
+}
+
+.nav-item {
+    margin: 5px;
+}
