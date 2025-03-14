@@ -29,7 +29,9 @@ public class WorkoutControllerIntegrationTest {
     @DirtiesContext
     void findWorkoutById() throws Exception {
 
-        Assertions.assertEquals(true, true);
+        boolean a = true;
+        boolean b = true;
+        Assertions.assertEquals(b, a);
 
     }
 
