@@ -1,14 +1,18 @@
 package de.superfische.controller;
 
-import de.superfische.model.Workout;
 import de.superfische.repository.WorkoutRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,13 +42,45 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     @DirtiesContext
-    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() throws Exception {
+    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() {
 
         mockMvc.perform(delete("/api/workout/{id}", "nonexistent-id"))
                 .andExpect(status().isNotFound());
 
         assertThat(workoutRepository.existsById("nonexistent-id")).isFalse();
     }
+
+    @Test
+    @DirtiesContext
+    void addWorkout() {
+        // given: Nothing but the class members
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders
+                            .post("/api/workout")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                            {
+                                 "id": "myTestID",
+                                 "description": "myTestDescription",
+                                 "workoutName": "myWorkoutName",
+                                 "imagePath": "c:/test/path/image.jpg"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                 "description": "myTestDescription",
+                                 "workoutName": "myWorkoutName",
+                                 "imagePath": "c:/test/path/image.jpg"                            }
+                            """))
+                    .andExpect(jsonPath("$.id").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
 }
 
 
