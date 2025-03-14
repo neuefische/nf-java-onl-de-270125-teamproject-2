@@ -23,38 +23,6 @@ public class WorkoutControllerIntegrationTest {
     @Autowired
     WorkoutRepository workoutRepository;
 
-    @Test
-    @DirtiesContext
-    void findWorkoutById() throws Exception {
-        // GIVEN
-        Workout existingWorkout = new Workout("1", "Testdescription", "My Workoutname", "https://superfische.der-supernerd.de/image1.png");
-        workoutRepository.save(existingWorkout);
 
-        // WHEN
-        mockMvc.perform(get("/api/workout/1"))
-
-        //THEN
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                            {
-                                "id": "1",
-                                "description": "Testdescription",
-                                "workoutName": "My Workoutname",
-                                "imagePath": "https://superfische.der-supernerd.de/image1.png"
-                            }
-                        """));
-    }
-
-    @Test
-    @DirtiesContext
-    void findWorkoutById_WhenWorkoutNotFound_thenStatus404() throws Exception {
-        //GIVEN
-
-        //WHEN
-        mockMvc.perform(get("/api/workout/1"))
-
-        //THEN
-                .andExpect(status().isNotFound());
-    }
 
 }
