@@ -11,6 +11,5 @@ export default function Header() {
             <button className={"nav-item"}>Add Workout</button>
         </nav>
 
-        <img src={"https://www.der-supernerd.de/super-fische-logo.webp"} className={"logo"} />
     </header>)
 }
