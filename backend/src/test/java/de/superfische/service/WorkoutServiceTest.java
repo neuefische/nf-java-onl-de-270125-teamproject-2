@@ -6,7 +6,12 @@ import de.superfische.model.IdService;
 import de.superfische.model.Workout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.mockito.Mockito.*;
+import de.superfische.model.Workout;
+import de.superfische.repository.WorkoutRepository;
+import org.junit.jupiter.api.Test;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
  class WorkoutServiceTest {
@@ -58,6 +63,7 @@ import static org.mockito.Mockito.*;
          Workout workoutMocked = new Workout(id, description, workoutName, imagePath);
          when(workoutRepository.insert(workoutMocked)).thenReturn(workoutMocked);
 
+
          // when
          Workout workoutInserted = workoutService.addWorkout(description, workoutName, imagePath);
 
@@ -70,4 +76,19 @@ import static org.mockito.Mockito.*;
          assertNotNull(workoutInserted.id());
      }
 
-}
+    @Test
+    void findAll() {
+        //GIVEN
+        Workout w1 = new Workout("1", "Test-Workout-1", "Übung-1", "");
+        Workout w2 = new Workout("2", "Test-Workout-2", "Übung-2", "");
+        when(mockWorkoutRepository.findAll()).thenReturn(List.of(w1, w2));
+
+        //WHEN
+        List<Workout> actual = workoutService.findAll();
+
+        //THEN
+        verify(mockWorkoutRepository).findAll();
+        List<Workout> expected = List.of(w1, w2);
+        assertEquals(expected, actual);
+    }
+ }
