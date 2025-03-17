@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public class WorkoutServiceTest {
+ class WorkoutServiceTest {
 
     private WorkoutRepository workoutRepository;
     private WorkoutService workoutService;
@@ -28,6 +28,7 @@ public class WorkoutServiceTest {
         // THEN
         verify(workoutRepository).deleteById(workoutId);
     }
+
     @Test
     void deleteWorkoutNotFound() {
         // GIVEN

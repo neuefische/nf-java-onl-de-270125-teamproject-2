@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
-public class WorkoutControllerTest {
+ class WorkoutControllerTest {
 
 
     private final WorkoutService workoutService = Mockito.mock(WorkoutService.class);
@@ -33,7 +33,7 @@ public class WorkoutControllerTest {
     void deleteWorkoutWhenNotExists() {
 
         //GIVEN
-        String workoutId = "999";
+        String workoutId = "888";
         doThrow(new IllegalArgumentException("Workout not found")).when(workoutService).deleteWorkout(workoutId);
         //WHEN
         ResponseEntity<Void> response = workoutController.deleteWorkout(workoutId);
