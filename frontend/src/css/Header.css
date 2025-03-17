@@ -1,7 +1,10 @@
 .container-home-image {
 
-    max-height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
     overflow: hidden;
+    height: 90vh;
     > img {
         width: 100vw;
     }
@@ -20,14 +23,14 @@
 }
 
 .slogan-title {
-    color: #0286c9;
+    color: #2b9fd7;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #123c60;
+    -webkit-text-stroke-color: #128ac3;
 }
 
 button {
     text-transform: uppercase;
-    background-color: #1a4e7b;
+    background-color: #128ac3;
     color: #FFFFFF;
     width: 200px;
     cursor: pointer;
@@ -35,5 +38,5 @@ button {
 }
 
 button:hover {
-    background-color: #3072af; /* Etwas hellere Version von #1a4e7b */
+    background-color: #2b9fd7; /* Etwas hellere Version von #1a4e7b */
 }
