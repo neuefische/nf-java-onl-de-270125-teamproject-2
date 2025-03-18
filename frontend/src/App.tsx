@@ -1,4 +1,3 @@
-import './App.css'
 import {AddWorkout} from "./components/AddWorkout.tsx";
 import {Workout} from "./types/Workout.ts";
 import axios from "axios";
