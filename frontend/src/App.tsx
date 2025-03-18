@@ -18,7 +18,7 @@ function App() {
 
     return (
         <>
-        <Home />
+            <Home/>
             <AddWorkout saveWorkout={saveWorkout}/>
         </>
     )
