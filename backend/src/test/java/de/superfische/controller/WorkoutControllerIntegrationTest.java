@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
- class WorkoutControllerIntegrationTest {
+class WorkoutControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     @DirtiesContext
-    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist(){
+    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() throws Exception {
 
         mockMvc.perform(delete("/api/workout/{id}", "nonexistent-id"))
                 .andExpect(status().isNotFound());
@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     @DirtiesContext
-    void addWorkout() {
+    void addWorkout() throws Exception {
         // given: Nothing but the class members
         // mocked repository not needed for post mapping
 
@@ -63,19 +63,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                             .post("/api/workout")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
-                            {
-                                 "id": "myTestID",
-                                 "description": "myTestDescription",
-                                 "workoutName": "myWorkoutName",
-                                 "imagePath": "c:/test/path/image.jpg"
-                            }
-                            """))
+                                    {
+                                         "id": "myTestID",
+                                         "description": "myTestDescription",
+                                         "workoutName": "myWorkoutName",
+                                         "imagePath": "c:/test/path/image.jpg"
+                                    }
+                                    """))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
                                  "description": "myTestDescription",
                                  "workoutName": "myWorkoutName",
-                                 "imagePath": "c:/test/path/image.jpg"                            }
+                                 "imagePath": "c:/test/path/image.jpg"
+                             }
                             """))
                     .andExpect(jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
@@ -85,11 +86,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     void shouldReturnWorkoutsWhenTheyExist() throws Exception {
-        Workout workout = new Workout("1", "", "Laufen", "übung-1-test");
+        Workout workout = new Workout("1", "übung-1-test", "Laufen", "");
         workoutRepository.save(workout);
         mockMvc.perform(get("/api/workout"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{'id':'1',imagePath:'', 'workoutName':'Laufen', 'description':'übung-1-test',imagePath:''}]")); // Erwartet das gespeicherte Workout zurück
+                .andExpect(content().json("[{'id':'1', 'workoutName':'Laufen', 'description':'übung-1-test',imagePath:''}]")); // Erwartet das gespeicherte Workout zurück
     }
 
     @Test
