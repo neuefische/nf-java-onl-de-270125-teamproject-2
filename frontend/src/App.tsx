@@ -1,9 +1,7 @@
 import {AddWorkout} from "./components/AddWorkout.tsx";
 import {Workout} from "./types/Workout.ts";
-import axios from "axios";
 import './css/App.css'
 import Home from "./components/Home.tsx";
-import {Workout} from "./types/Workout.ts";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import WorkoutGallery from "./components/WorkoutGallery.tsx";
@@ -27,6 +25,7 @@ export default function App() {
             .catch((errorResponse) => {
                 console.log(errorResponse)
             })
+    }
         console.log("After Request")
 
         function saveWorkout(workout: Workout) {
@@ -39,12 +38,13 @@ export default function App() {
                 })
 
         }
-    return (
-        <>
-            <Home/>
-            <AddWorkout saveWorkout={saveWorkout}/>
-            <WorkoutGallery workouts={workouts}/>
-        </>
+
+        return (
+            <>
+                <Home/>
+                <AddWorkout saveWorkout={saveWorkout}/>
+                <WorkoutGallery workouts={workouts}/>
+            </>
     )
-}
+
 }

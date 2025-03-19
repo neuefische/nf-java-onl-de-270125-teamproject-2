@@ -7,12 +7,8 @@ import de.superfische.model.Workout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
-import de.superfische.model.Workout;
-import de.superfische.repository.WorkoutRepository;
-import org.junit.jupiter.api.Test;
+
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
  class WorkoutServiceTest {private WorkoutRepository workoutRepository;
     private WorkoutService workoutService;
@@ -79,13 +75,13 @@ import static org.mockito.Mockito.*;
         //GIVEN
         Workout w1 = new Workout("1", "", "Übung-1", "übung-1-test");
         Workout w2 = new Workout("2", "", "Übung-2", "Test-Workout-2");
-        when(mockWorkoutRepository.findAll()).thenReturn(List.of(w1, w2));
+        when(workoutRepository.findAll()).thenReturn(List.of(w1, w2));
 
         //WHEN
         List<Workout> actual = workoutService.findAll();
 
         //THEN
-        verify(mockWorkoutRepository).findAll();
+        verify(workoutRepository).findAll();
         List<Workout> expected = List.of(w1, w2);
         assertEquals(expected, actual);
     }
