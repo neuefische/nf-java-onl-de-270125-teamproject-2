@@ -1,23 +1,31 @@
 import './App.css'
+import {Route, Routes} from "react-router";
+import Login from "./components/Login.tsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
+import {useEffect, useState} from "react";
+import Workout from "./components/Workout.tsx";
+import axios from "axios";
 
 function App() {
 
-    function login() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080': window.location.origin
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
-        window.open(host + '/oauth2/authorization/github', '_self')
+    function getMe() {
+        axios.get("/api/auth/me")
+            .then(() => setIsLoggedIn(true))
+            .catch(e => console.error(e))
     }
 
-  return (
-    <>
-      <h1>Willkommen bei Super Fische</h1>
-      <div className="card">
-        <button onClick={login}>
-          Login
-        </button>
-      </div>
-    </>
-  )
+    useEffect(getMe, []);
+
+    return (
+        <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>}>
+                <Route path="/workout" element={<Workout/>}/>
+            </Route>
+        </Routes>
+    )
 }
 
 export default App
