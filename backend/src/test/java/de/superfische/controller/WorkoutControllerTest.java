@@ -37,7 +37,8 @@ public class WorkoutControllerTest {
                 .content("""
                         {
                             "description": "test-description-2",
-                            "workoutName": "test-name-2"
+                            "workoutName": "test-name-2",
+                            "imagePath": "test-img-2"
                         }
                         """))
                 //THEN
@@ -47,7 +48,7 @@ public class WorkoutControllerTest {
                             "id": "1",
                             "description": "test-description-2",
                             "workoutName": "test-name-2",
-                            "imagePath": "test-img"
+                            "imagePath": "test-img-2"
                         }
                         """));
     }
