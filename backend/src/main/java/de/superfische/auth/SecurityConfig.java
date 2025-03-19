@@ -21,16 +21,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                // bei username password muss das csrf definitiv enabled sein, bei oauth wird das für uns geregelt
+                .csrf(AbstractHttpConfigurer::disable) //cross site reforgery token, gegen hacker, anfrage muss immer vom selben host kommen
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/auth/me").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .logout(l -> l.logoutSuccessUrl(appUrl))
+                .logout(l -> l.logoutSuccessUrl(appUrl + "/logout")) // change string if you want to navigate somewhere
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2Login(o -> o.defaultSuccessUrl(appUrl));
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/workout")); // change string if you want to navigate somewhere
         return http.build();
     }
 
