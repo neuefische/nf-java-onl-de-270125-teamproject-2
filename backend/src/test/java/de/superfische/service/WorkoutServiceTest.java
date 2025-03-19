@@ -14,9 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
- class WorkoutServiceTest {
-
-    private WorkoutRepository workoutRepository;
+ class WorkoutServiceTest {private WorkoutRepository workoutRepository;
     private WorkoutService workoutService;
 
     @BeforeEach
@@ -79,8 +77,8 @@ import static org.mockito.Mockito.*;
     @Test
     void findAll() {
         //GIVEN
-        Workout w1 = new Workout("1", "Test-Workout-1", "Übung-1", "");
-        Workout w2 = new Workout("2", "Test-Workout-2", "Übung-2", "");
+        Workout w1 = new Workout("1", "", "Übung-1", "übung-1-test");
+        Workout w2 = new Workout("2", "", "Übung-2", "Test-Workout-2");
         when(mockWorkoutRepository.findAll()).thenReturn(List.of(w1, w2));
 
         //WHEN

@@ -6,11 +6,11 @@ import Home from "./components/Home.tsx";
 import {Workout} from "./types/Workout.ts";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Route, Routes} from "react-router";
+import WorkoutGallery from "./components/WorkoutGallery.tsx";
 
 export default function App() {
 
-    const [workouts, setWokrouts] = useState<Workout[]>([])
+    const [workouts, setWorkouts] = useState<Workout[]>([])
 
     useEffect(() => {
         console.log("First time rendering App")
@@ -22,7 +22,7 @@ export default function App() {
             .then((response) => {
                 console.log("Request finished")
                 console.log(response.data)
-                setWokrouts(response.data)
+                setWorkouts(response.data)
             })
             .catch((errorResponse) => {
                 console.log(errorResponse)
@@ -38,12 +38,13 @@ export default function App() {
                     console.log(errorResponse)
                 })
 
-
+        }
     return (
         <>
             <Home/>
             <AddWorkout saveWorkout={saveWorkout}/>
-
+            <WorkoutGallery workouts={workouts}/>
         </>
     )
+}
 }

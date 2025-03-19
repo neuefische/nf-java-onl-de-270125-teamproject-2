@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     @DirtiesContext
-    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() throws Exception {
+    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist(){
 
         mockMvc.perform(delete("/api/workout/{id}", "nonexistent-id"))
                 .andExpect(status().isNotFound());
@@ -85,11 +85,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     void shouldReturnWorkoutsWhenTheyExist() throws Exception {
-        Workout workout = new Workout("1", "übung-1-test", "Laufen", "");
+        Workout workout = new Workout("1", "", "Laufen", "übung-1-test");
         workoutRepository.save(workout);
         mockMvc.perform(get("/api/workout"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{'id':'1', 'workoutName':'übung-1-test', 'description':'Laufen',imagePath:''}]")); // Erwartet das gespeicherte Workout zurück
+                .andExpect(content().json("[{'id':'1',imagePath:'', 'workoutName':'Laufen', 'description':'übung-1-test',imagePath:''}]")); // Erwartet das gespeicherte Workout zurück
     }
 
     @Test
