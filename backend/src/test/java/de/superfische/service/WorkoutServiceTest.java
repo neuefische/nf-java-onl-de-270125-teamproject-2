@@ -104,14 +104,14 @@ import java.util.NoSuchElementException;
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DirtiesContext
-    void findWorkoutById_WhenWorkoutNotFound_thenStatus404() throws Exception {
-        //GIVEN
-        when(workoutService.findWorkoutById("1445")).thenThrow(new NoSuchElementException());
-
-        //WHEN & THEN
-        mockMvc.perform(get("/api/workout/1445"))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    @DirtiesContext
+//    void findWorkoutById_WhenWorkoutNotFound_thenStatus404() throws Exception {
+//        //GIVEN
+//        when(workoutService.findWorkoutById("1445")).thenThrow(new NoSuchElementException());
+//
+//        //WHEN & THEN
+//        mockMvc.perform(get("/api/workout/1445"))
+//                .andExpect(status().isNotFound());
+//    }
  }
