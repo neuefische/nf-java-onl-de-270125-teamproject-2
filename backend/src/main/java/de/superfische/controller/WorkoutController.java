@@ -4,6 +4,7 @@ import de.superfische.model.Workout;
 import de.superfische.service.WorkoutService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +49,7 @@ public class WorkoutController {
     }
 
     @GetMapping("/workout/{id}")
-    public ResponseEntity<Workout> findWorkoutById(@PathVariable String id) {
+    public ResponseEntity<Object> findWorkoutById(@PathVariable String id) {
 
         try {
             Workout workout = workoutService.findWorkoutById(id);

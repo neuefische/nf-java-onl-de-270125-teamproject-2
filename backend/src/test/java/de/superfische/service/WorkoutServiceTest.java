@@ -1,4 +1,5 @@
 package de.superfische.service;
+
 import de.superfische.repository.WorkoutRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,8 +28,10 @@ import java.util.NoSuchElementException;
     private MockMvc mockMvc;
 
     @Autowired
-    WorkoutRepository workoutRepository;
+    WorkoutRepository workoutRepository2;
 
+
+    private WorkoutRepository workoutRepository;
     private WorkoutService workoutService;
 
     @BeforeEach
@@ -104,14 +107,33 @@ import java.util.NoSuchElementException;
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    @DirtiesContext
-//    void findWorkoutById_WhenWorkoutNotFound_thenStatus404() throws Exception {
-//        //GIVEN
-//        when(workoutService.findWorkoutById("1445")).thenThrow(new NoSuchElementException());
-//
-//        //WHEN & THEN
-//        mockMvc.perform(get("/api/workout/1445"))
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    void findWorkoutById_WorkoutFound_ReturnsWorkout() {
+        // GIVEN
+        String workoutId = "123";
+        Workout workout = new Workout(workoutId, "Beschreibung", "Test Workout", "test.jpg");
+        when(workoutRepository.findById(workoutId)).thenReturn(Optional.of(workout)); // Workout gefunden
+
+        // WHEN
+        Workout result = workoutService.findWorkoutById(workoutId);
+
+        // THEN
+        assertNotNull(result);
+        assertEquals(workoutId, result.id());
+        assertEquals("Beschreibung", result.description());
+    }
+
+    @Test
+    void findWorkoutById_WorkoutNotFound_ThrowsNoSuchElementException() {
+        // GIVEN
+        String workoutId = "1445";
+        when(workoutRepository.findById(workoutId)).thenReturn(Optional.empty()); // Workout nicht gefunden
+
+        // WHEN + THEN
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            workoutService.findWorkoutById(workoutId);
+        });
+
+        assertEquals("Workout with id: " + workoutId + " not found!", exception.getMessage());
+    }
  }
