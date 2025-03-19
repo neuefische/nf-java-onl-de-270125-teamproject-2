@@ -15,7 +15,6 @@ public class WorkoutService {
     public Workout updateWorkout(Workout workout, String id) {
         Workout workoutToUpdate = new Workout(id, workout.description(), workout.workoutName(), workout.imagePath());
 
-        //Frage: how to handle errors?
         return workoutRepository.save(workoutToUpdate);
     }
 }

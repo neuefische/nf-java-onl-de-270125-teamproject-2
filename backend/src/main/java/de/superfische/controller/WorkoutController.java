@@ -15,7 +15,7 @@ public class WorkoutController {
     }
 
     @PutMapping("/workout/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED) //Frage: wo fange ich hier ab, wenn es fehlschlägt
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public Workout putWorkout(@RequestBody Workout workout, @PathVariable String id)
     {
         System.out.println("Api request erfolgreich");
