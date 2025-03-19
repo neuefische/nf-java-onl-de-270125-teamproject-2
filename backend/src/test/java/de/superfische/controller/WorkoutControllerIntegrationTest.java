@@ -112,7 +112,7 @@ public class WorkoutControllerIntegrationTest {
         // WHEN
         mockMvc.perform(get("/api/workout/1"))
 
-                //THEN
+        //THEN
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                             {
@@ -132,7 +132,7 @@ public class WorkoutControllerIntegrationTest {
         //WHEN
         mockMvc.perform(get("/api/workout/1"))
 
-                //THEN
+        //THEN
                 .andExpect(status().isNotFound());
     }
 
