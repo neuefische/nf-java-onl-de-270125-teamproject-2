@@ -28,9 +28,8 @@ public class WorkoutService {
     }
 
     public Workout findWorkoutById(String id) {
-
-        return workoutRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Workout with id: " + id + " not found!"));
-
+        return workoutRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Workout with id: " + id + " not found!"));
     }
 
     public void deleteWorkout(String id) {
