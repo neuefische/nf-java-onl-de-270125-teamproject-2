@@ -1,5 +1,6 @@
 package de.superfische.controller;
 
+import de.superfische.model.Workout;
 import de.superfische.repository.WorkoutRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     @DirtiesContext
-    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() {
+    void deleteWorkout_shouldReturnNotFound_whenWorkoutDoesNotExist() throws Exception {
 
         mockMvc.perform(delete("/api/workout/{id}", "nonexistent-id"))
                 .andExpect(status().isNotFound());
