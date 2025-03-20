@@ -4,15 +4,9 @@ import de.superfische.model.Workout;
 import de.superfische.service.WorkoutService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -38,7 +32,7 @@ public class WorkoutController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
-}
+    }
 
     @GetMapping("/workout")
     public ResponseEntity<List<Workout>> getAllWorkouts() {
@@ -50,7 +44,7 @@ public class WorkoutController {
     }
 
     @GetMapping("/workout/{id}")
-    public ResponseEntity<Workout> findWorkoutById(@PathVariable String id) {
+    public ResponseEntity<Object> findWorkoutById(@PathVariable String id) {
 
         try {
             Workout workout = workoutService.findWorkoutById(id);
@@ -59,5 +53,12 @@ public class WorkoutController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
+    }
+
+    @PutMapping("/workout/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Workout putWorkout(@RequestBody Workout workout, @PathVariable String id)
+    {
+        return workoutService.updateWorkout(workout, id);
     }
 }

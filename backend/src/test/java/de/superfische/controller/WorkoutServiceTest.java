@@ -1,21 +1,21 @@
 package de.superfische.controller;
 
-import de.superfische.model.Workout;
-import de.superfische.repository.WorkoutRepository;
+import de.superfische.service.WorkoutService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class WorkoutControllerTest {
+class WorkoutServiceTest {
+
 
     private final WorkoutService workoutService = Mockito.mock(WorkoutService.class);
     private final WorkoutController workoutController = new WorkoutController(workoutService);
@@ -47,4 +47,6 @@ public class WorkoutControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         verify(workoutService).deleteWorkout(workoutId);
     }
+
+
 }
