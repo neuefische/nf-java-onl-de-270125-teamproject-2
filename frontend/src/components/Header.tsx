@@ -6,7 +6,6 @@ export default function Header() {
     const location = useLocation();
     const isActive = (path: string) => location.pathname === path ? "active" : "";
 
-    console.log("active SEite: " + isActive)
     return (
     <header>
 
