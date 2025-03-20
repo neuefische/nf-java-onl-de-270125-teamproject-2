@@ -1,4 +1,4 @@
-import Workout from "./types/Workout.tsx"
+import Workout from "../types/Workout.tsx"
 type Props = {
     workout: Workout,
     onWorkoutItemChange: () => void
