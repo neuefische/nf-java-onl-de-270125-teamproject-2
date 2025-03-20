@@ -39,6 +39,7 @@ button {
 
 button.nav-item.active {
     background-color: #eb2733;
+    font-weight: bold;
 }
 
 button:hover {
