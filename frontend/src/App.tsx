@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import WorkoutGallery from "./components/WorkoutGallery.tsx";
 import UpdateWorkout from "./components/UpdateWorkout.tsx";
+import {Route, Routes} from "react-router";
 
 export default function App() {
 
@@ -41,12 +42,11 @@ export default function App() {
         }
 
         return (
-            <>
-                <Home/>
-                <AddWorkout saveWorkout={saveWorkout}/>
-                <WorkoutGallery workouts={workouts}/>
-                <UpdateWorkout workout={workouts[0]} onWorkoutItemChange={() => console.log("Changed")}/>
-            </>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/" element={<AddWorkout saveWorkout={saveWorkout}/>}/>
+                    <Route path="/workout" element={<WorkoutGallery workouts={workouts}/>}/>
+                </Routes>
     )
 
 }
