@@ -59,7 +59,6 @@ public class WorkoutController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Workout putWorkout(@RequestBody Workout workout, @PathVariable String id)
     {
-        System.out.println("Api request erfolgreich");
         return workoutService.updateWorkout(workout, id);
     }
 }

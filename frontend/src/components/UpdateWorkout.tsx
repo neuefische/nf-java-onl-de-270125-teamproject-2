@@ -1,4 +1,4 @@
-import Workout from "./Workout.tsx"
+import Workout from "./types/Workout.tsx"
 type Props = {
     workout: Workout,
     onWorkoutItemChange: () => void
@@ -11,7 +11,7 @@ export default function UpdateWorkout(props: Props) {
 
     //const navigate = useNavigate();
 
-    const [givenWorkout, setgivenWorkout] = useState(props.workout);
+    const [givenWorkout, setGivenWorkout] = useState(props.workout);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         console.log("Workout gespeichert")
@@ -33,7 +33,7 @@ export default function UpdateWorkout(props: Props) {
     {
         const key = event.target.name;
         const value = event.target.value;
-        setgivenWorkout({...givenWorkout, [key]: value})
+        setGivenWorkout({...givenWorkout, [key]: value})
     }
 
     return(
