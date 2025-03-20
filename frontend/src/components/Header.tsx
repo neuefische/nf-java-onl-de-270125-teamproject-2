@@ -1,26 +1,33 @@
 import "../css/Header.css"
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 
 export default function Header() {
     const navigate = useNavigate()
+    const location = useLocation();
+    const isActive = (path: string) => location.pathname === path ? "active" : "";
 
+    console.log("active SEite: " + isActive)
     return (
     <header>
 
         <h1 className={"slogan-title"}>Super-Fish: Fitness from the Water!</h1>
         <nav className={"nav-bar"}>
 
-            <button className={"nav-item"} onClick={
+            <button className={`nav-item ${isActive("/")}`} onClick={
                 () => { navigate("/") }
             }>Home</button>
 
-            <button className={"nav-item"} onClick={
-                () => navigate("/workout/")
-            }>All Workouts</button>
+            <button
+                className={`nav-item ${isActive("/workout/")}`}
+                onClick={() => navigate("/workout/")}>
+                All Workouts
+            </button>
 
-            <button className={"nav-item"} onClick={
-                () => navigate("/addworkout/")
-            }>Add Workout</button>
+            <button
+                className={`nav-item ${isActive("/addworkout/")}`}
+                onClick={() => navigate("/addworkout/")}>
+                Add Workout
+            </button>
         </nav>
 
     </header>)
