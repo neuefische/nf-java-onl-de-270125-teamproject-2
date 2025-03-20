@@ -13,14 +13,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class WorkoutControllerIntegrationTest {
+public class WorkoutControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -100,8 +100,39 @@ class WorkoutControllerIntegrationTest {
 
     }
 
+    @Test
+    @DirtiesContext
+    void findWorkoutById() throws Exception {
+        // GIVEN
+        Workout existingWorkout = new Workout("1", "Testdescription", "My Workoutname", "https://superfische.der-supernerd.de/image1.png");
+        workoutRepository.save(existingWorkout);
+
+        // WHEN
+        mockMvc.perform(get("/api/workout/1"))
+
+        //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                            {
+                                "id": "1",
+                                "description": "Testdescription",
+                                "workoutName": "My Workoutname",
+                                "imagePath": "https://superfische.der-supernerd.de/image1.png"
+                            }
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void findWorkoutById_WhenWorkoutNotFound_thenStatus404() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mockMvc.perform(get("/api/workout/1"))
+
+        //THEN
+                .andExpect(status().isNotFound());
+    }
+
+
 }
-
-
-
-

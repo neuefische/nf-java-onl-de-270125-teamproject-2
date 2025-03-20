@@ -1,16 +1,31 @@
 package de.superfische.service;
+
+import de.superfische.model.IdService;
+import de.superfische.model.Workout;
 import de.superfische.repository.WorkoutRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import de.superfische.model.IdService;
-import de.superfische.model.Workout;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
- class WorkoutServiceTest { 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+ class WorkoutServiceTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    WorkoutRepository workoutRepository2;
+
 
     private WorkoutRepository workoutRepository;
     private WorkoutService workoutService;
@@ -86,5 +101,35 @@ import java.util.List;
         verify(workoutRepository).findAll();
         List<Workout> expected = List.of(w1, w2);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void findWorkoutById_WorkoutFound_ReturnsWorkout() {
+        // GIVEN
+        String workoutId = "123";
+        Workout workout = new Workout(workoutId, "Beschreibung", "Test Workout", "test.jpg");
+        when(workoutRepository.findById(workoutId)).thenReturn(Optional.of(workout)); // Workout gefunden
+
+        // WHEN
+        Workout result = workoutService.findWorkoutById(workoutId);
+
+        // THEN
+        assertNotNull(result);
+        assertEquals(workoutId, result.id());
+        assertEquals("Beschreibung", result.description());
+    }
+
+    @Test
+    void findWorkoutById_WorkoutNotFound_ThrowsNoSuchElementException() {
+        // GIVEN
+        String workoutId = "1445";
+        when(workoutRepository.findById(workoutId)).thenReturn(Optional.empty()); // Workout nicht gefunden
+
+        // WHEN + THEN
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            workoutService.findWorkoutById(workoutId);
+        });
+
+        assertEquals("Workout with id: " + workoutId + " not found!", exception.getMessage());
     }
  }
