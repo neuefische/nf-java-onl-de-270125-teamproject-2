@@ -1,6 +1,6 @@
 export type Workout = {
-    id: string,
-    imagePath: string,
-    description: string,
-    name: string,
+    id: string
+    description: string
+    workoutName: string
+    imagePath: string
 }
