@@ -132,4 +132,24 @@ import static org.mockito.Mockito.*;
 
         assertEquals("Workout with id: " + workoutId + " not found!", exception.getMessage());
     }
+
+    @Test
+    void updateWorkout() {
+        //GIVEN
+        String id = "123";
+        Workout workoutToUpdate = new Workout("123", "test-description", "test-name", "test-img");
+
+        Workout updatedWorkout = new Workout("123", "test-description", "test-name", "test-img");
+
+        when(workoutRepository.save(updatedWorkout)).thenReturn(updatedWorkout);
+
+        //WHEN
+
+        Workout actual = workoutService.updateWorkout(workoutToUpdate, id);
+
+        //THEN
+        verify(workoutRepository).save(updatedWorkout);
+
+        assertEquals(updatedWorkout, actual);
+    }
  }

@@ -54,4 +54,11 @@ public class WorkoutController {
         }
 
     }
+
+    @PutMapping("/workout/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Workout putWorkout(@RequestBody Workout workout, @PathVariable String id)
+    {
+        return workoutService.updateWorkout(workout, id);
+    }
 }

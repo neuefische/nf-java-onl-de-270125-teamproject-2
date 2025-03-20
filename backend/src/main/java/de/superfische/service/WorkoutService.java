@@ -46,4 +46,10 @@ public class WorkoutService {
     public List<Workout> findAll() {
         return workoutRepository.findAll();  // Calls the findAll() method from the repository
     }
+
+    public Workout updateWorkout(Workout workout, String id) {
+        Workout workoutToUpdate = new Workout(id, workout.description(), workout.workoutName(), workout.imagePath());
+
+        return workoutRepository.save(workoutToUpdate);
+    }
 }

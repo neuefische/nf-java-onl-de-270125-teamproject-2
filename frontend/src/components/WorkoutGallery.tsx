@@ -1,5 +1,6 @@
 import {Workout} from "../types/Workout.ts";
 import WorkoutCard from "./WorkoutCard.tsx";
+import Header from "./Header.tsx";
 
 type WorkoutProps = {
     workouts: Workout[];
@@ -15,8 +16,11 @@ export default function WorkoutGallery(props: Readonly<WorkoutProps>) {
     );
 
     return (
-        <div className="workout-gallery">
-            {cards}
-        </div>
+        <>
+            <Header />
+            <div className="workout-gallery">
+                {cards}
+            </div>
+        </>
     );
 }
