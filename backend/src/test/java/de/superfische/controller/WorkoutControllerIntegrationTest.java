@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -82,6 +81,36 @@ class WorkoutControllerIntegrationTest {
         } catch (Exception e) {
             Assertions.fail();
         }
+    }
+
+    @Test
+    @DirtiesContext
+    void putWorkout() throws Exception {
+
+        //Given
+        Workout existingWorkout = new Workout("1", "test-description", "test-name", "test-img");
+        workoutRepository.save(existingWorkout);
+
+        //When
+        mockMvc.perform(put("/api/workout/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        {
+                            "description": "test-description-2",
+                            "workoutName": "test-name-2",
+                            "imagePath": "test-img-2"
+                        }
+                        """))
+                //THEN
+                .andExpect(status().isAccepted())
+                .andExpect(content().json("""
+                        {
+                            "id": "1",
+                            "description": "test-description-2",
+                            "workoutName": "test-name-2",
+                            "imagePath": "test-img-2"
+                        }
+                        """));
     }
 
     @Test
