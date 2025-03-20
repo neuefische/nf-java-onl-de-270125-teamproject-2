@@ -15,12 +15,12 @@ export default function UpdateWorkout(props: Props) {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         console.log("Workout gespeichert")
-        saveToDo();
+        saveWorkout();
         event.preventDefault();
         //navigate("/"); // go back to Dashboard
     };
 
-    function saveToDo()
+    function saveWorkout()
     {
         console.log("ID von gespeichertem Wortkout" + props.workout.id)
         // request to backend
