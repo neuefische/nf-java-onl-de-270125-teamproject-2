@@ -19,6 +19,7 @@ public class SecurityConfig {
     private String appUrl;
 
     @Bean
+    @SuppressWarnings("squid:S4502")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // bei username password muss das csrf definitiv enabled sein, bei oauth wird das für uns geregelt
