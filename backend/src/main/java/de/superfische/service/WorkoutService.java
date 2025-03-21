@@ -46,8 +46,10 @@ public class WorkoutService {
     public List<Workout> findAll() {
         return workoutRepository.findAll();  // Calls the findAll() method from the repository
     }
-
+    // Best practice: DTO + ID
     public Workout updateWorkout(Workout workout, String id) {
+        //first: do findworkoutbyID to check if existent in databank, sonst exception, und dann auch daten
+        // aus find by ID nutzen und dann überschreiben
         Workout workoutToUpdate = new Workout(id, workout.description(), workout.workoutName(), workout.imagePath());
 
         return workoutRepository.save(workoutToUpdate);

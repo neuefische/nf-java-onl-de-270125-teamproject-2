@@ -1,16 +1,31 @@
-import {useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import axios from "axios";
+import {useEffect, useState} from "react";
+import {Workout} from "../types/Workout.ts";
 
+type Props =
+    {
+        handleWorkout: (workout: Workout) => void;
+        workout?: Workout;
+    }
 
-type WorkoutProps = {
-    id: string;
-    workoutName: string;
-    description: string;
-    imagePath: string;
-};
-
-const WorkoutDetails = ({ id, workoutName, description, imagePath }:WorkoutProps) => {
+const WorkoutDetails = (props: Props) => {
     const navigate = useNavigate();
+
+    const params = useParams();
+    const id: string | undefined = params.id;
+    const [currentWorkout, setCurrentWorkout] = useState<Workout | null | undefined>(props.workout ? props.workout : undefined);
+
+    useEffect(() => {
+            fetchWorkout();
+    }, [currentWorkout]);
+
+    function fetchWorkout() {
+        axios.get(`/api/workout/${id}`)
+            .then(response => {
+                setCurrentWorkout(response.data)
+            }).catch(() => setCurrentWorkout(null))
+    }
 
     const handleDelete = async () => {
         const confirmed = window.confirm("Are you sure you want to delete this workout?");
@@ -18,7 +33,7 @@ const WorkoutDetails = ({ id, workoutName, description, imagePath }:WorkoutProps
             try {
                 await axios.delete(`/api/workout/${id}`);
                 alert("Workout successfully deleted");
-                navigate("/workouts");
+                navigate("/workout");
             } catch (error) {
                 console.error(error);
                 alert("Error deleting workout");
@@ -26,12 +41,27 @@ const WorkoutDetails = ({ id, workoutName, description, imagePath }:WorkoutProps
         }
     };
 
+    const handleUpdate = async () => {
+        console.log("handle Update; id:" + id)
+        if (currentWorkout) {
+            props.handleWorkout(currentWorkout);
+        }
+    };
+
+    if(currentWorkout === undefined)
+        return <div>Loading ...</div>
+
     return (
         <div>
-            <h1>{workoutName}</h1>
-            <p>{description}</p>
-            <img src={imagePath} alt={`Image for ${workoutName}`} />
-            <button onClick={handleDelete}>Delete</button>
+            {currentWorkout ?
+                (<>
+                    <h1>{currentWorkout.workoutName}</h1>
+                    <p>{currentWorkout.description}</p>
+                    <img src={currentWorkout.imagePath} alt={`Image for ${currentWorkout.workoutName}`} />
+                    <button onClick={handleDelete}>Delete</button>&nbsp;
+                    <button onClick={handleUpdate}>Update</button>
+                </>)
+            : <h1>No workout to display</h1>}
         </div>
     );
 };
