@@ -1,47 +1,49 @@
-.container-home-image {
+.container-home-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius:20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container-home-image img:hover {
+    transform: scale(1.05);
+}
 
+.container-home-image {
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-end;
+
     overflow: hidden;
-    height: 90vh;
-    > img {
-        width: 100vw;
-    }
+    height: 100vh;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.logo-container {
+    position: absolute;
+    background-attachment: scroll;
+    top: 80px;
+    left: 10px;
+    z-index: 10;
+    max-width: calc(100% - 20px);
+    overflow: hidden;
 }
 
 .logo {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 300px;
+    position: static;
+    margin-right: 200px;
+    background-attachment: scroll;
+    max-width: 160px;
+    max-height: 160px;
+    width: auto;
     height: auto;
+    will-change: filter;
+    transition: filter 300ms;
 }
 
-.slogan-title {
-    color: #2b9fd7;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #128ac3;
-}
-
-button {
-    text-transform: uppercase;
-    background-color: #128ac3;
-    color: #FFFFFF;
-    width: 200px;
-    cursor: pointer;
-    transition: background-color 0.8s ease;
-}
-
-.nav-item {
-    margin: 5px;
-}
-
-button.nav-item.active {
-    background-color: #eb2733;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #2b9fd7; /* Etwas hellere Version von #1a4e7b */
+header {
+    position: static;
+    padding: 20px;
+    box-sizing: border-box;
 }
