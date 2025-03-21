@@ -46,16 +46,19 @@ export default function App() {
     }
     console.log("After Request")
 
-    function saveWorkout(workout: Workout) {
+    async function saveWorkout(workout: Workout) {
         axios.post("/api/workout", workout)
             .then((response) => {
                 console.log(response)
+                loadWorkouts()
             })
             .catch((errorResponse) => {
                 console.log(errorResponse)
             })
 
-    loadWorkouts() // Gregor: Is this okay for all team members? And: It does not work! :-(
+        // setTimeout(1000)
+        // loadWorkouts() // Gregor: Is this okay for all team members? And: It does not work! :-( setTimeout does not fix it
+        // it was at the wrong place. Now it is in the .then-section and works.
     }
 
     function handleWorkout(workout: Workout) {
