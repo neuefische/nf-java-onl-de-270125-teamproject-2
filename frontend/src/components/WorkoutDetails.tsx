@@ -2,6 +2,7 @@ import {useNavigate, useParams} from "react-router";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {Workout} from "../types/Workout.ts";
+import Header from "./Header.tsx";
 
 type Props =
     {
@@ -17,7 +18,7 @@ const WorkoutDetails = (props: Props) => {
     const [currentWorkout, setCurrentWorkout] = useState<Workout | null | undefined>(props.workout ? props.workout : undefined);
 
     useEffect(() => {
-            fetchWorkout();
+        fetchWorkout();
     }, [currentWorkout]);
 
     function fetchWorkout() {
@@ -48,21 +49,26 @@ const WorkoutDetails = (props: Props) => {
         }
     };
 
-    if(currentWorkout === undefined)
+    if (currentWorkout === undefined)
         return <div>Loading ...</div>
 
     return (
-        <div>
-            {currentWorkout ?
-                (<>
-                    <h1>{currentWorkout.workoutName}</h1>
-                    <p>{currentWorkout.description}</p>
-                    <img src={currentWorkout.imagePath} alt={`Image for ${currentWorkout.workoutName}`} />
-                    <button onClick={handleDelete}>Delete</button>&nbsp;
-                    <button onClick={handleUpdate}>Update</button>
-                </>)
-            : <h1>No workout to display</h1>}
-        </div>
+        <>
+            <Header/>
+            <div>
+
+                {currentWorkout ?
+                    (<>
+                        <h1>{currentWorkout.workoutName}</h1>
+                        <p>{currentWorkout.description}</p>
+                        <img src={currentWorkout.imagePath} alt={`Image for ${currentWorkout.workoutName}`}/>
+                        <button onClick={handleDelete}>Delete</button>
+                        &nbsp;
+                        <button onClick={handleUpdate}>Update</button>
+                    </>)
+                    : <h1>No workout to display</h1>}
+            </div>
+        </>
     );
 };
 
