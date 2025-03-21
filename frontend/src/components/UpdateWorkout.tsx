@@ -1,32 +1,38 @@
-import Workout from "../types/Workout.tsx"
-type Props = {
-    workout: Workout,
-    onWorkoutItemChange: () => void
-}
+import {Workout} from "../types/Workout.ts"
 
 import axios from "axios";
 import {ChangeEvent, FormEvent, useState} from "react";
+import {useNavigate} from "react-router";
 
+type Props = {
+    workout: Workout | undefined
+    handleUpdatedWorkout: (workout: Workout) => void
+}
+
+// Best practice optional props mit typ Workout, useParams brauche ich nicht, von Workout Details übergeben
 export default function UpdateWorkout(props: Props) {
 
-    //const navigate = useNavigate();
+    //states und useEffect dürfen nie conditionally aufgerufen werden
+    const [givenWorkout, setGivenWorkout] = useState<Workout>(
+        props.workout ? props.workout : {id: "", imagePath: "", workoutName: "", description: ""}
+    );
 
-    const [givenWorkout, setGivenWorkout] = useState(props.workout);
+    const navigate = useNavigate();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         console.log("Workout gespeichert")
         saveWorkout();
         event.preventDefault();
-        //navigate("/"); // go back to Dashboard
+        navigate(`/workout/${givenWorkout.id}`); // go back to Detail page, which is not reloaded
     };
 
     function saveWorkout()
     {
-        console.log("ID von gespeichertem Wortkout" + props.workout.id)
+        console.log("ID von gespeichertem Wortkout" + givenWorkout.id)
         // request to backend
-        axios.put("/api/workout/" + props.workout.id, {
+        axios.put("/api/workout/" + givenWorkout.id,
             givenWorkout
-        } as Workout)
+        ).then(() => props.handleUpdatedWorkout(givenWorkout))
     }
 
     function updateGivenWorkout(event: ChangeEvent<HTMLInputElement>)
@@ -45,7 +51,7 @@ export default function UpdateWorkout(props: Props) {
                         <input name="imagePath" type="text" value={givenWorkout.imagePath} onChange={event => updateGivenWorkout(event)}/>
                     </label>
                     <label>Workout Name:
-                        <input name="name" type="text" value={givenWorkout.name} onChange={event => updateGivenWorkout(event)}/>
+                        <input name="workoutName" type="text" value={givenWorkout.workoutName} onChange={event => updateGivenWorkout(event)}/>
                     </label>
                     <label>Description:
                         <input name="description" type="text" value={givenWorkout.description} onChange={event => updateGivenWorkout(event)}/>
