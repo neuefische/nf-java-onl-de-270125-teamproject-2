@@ -7,19 +7,19 @@ type WorkoutProps = {
 };
 
 export default function WorkoutGallery(props: Readonly<WorkoutProps>) {
+
     if (!Array.isArray(props.workouts)) {
         return <div>No workouts available</div>;
     }
 
-    const cards = props.workouts.map((workout) =>
-        <WorkoutCard key={workout.id} workout={workout} />
-    );
 
     return (
         <>
             <Header />
             <div className="workout-gallery">
-                {cards}
+                {props.workouts.map((workout) => (
+                    <WorkoutCard key={workout.id} workout={workout} />
+                ))}
             </div>
         </>
     );
