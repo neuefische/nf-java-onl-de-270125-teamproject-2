@@ -18,7 +18,7 @@ const WorkoutDetails = (props: Props) => {
 
     useEffect(() => {
             fetchWorkout();
-    }, [id]);
+    }, [currentWorkout]);
 
     function fetchWorkout() {
         axios.get(`/api/workout/${id}`)
