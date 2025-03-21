@@ -71,7 +71,7 @@ export default function App() {
         <Routes>
             <Route path="/" element={<Login/>}/>
             <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>}>
-                <Route path="/" element={<Home/>}/>
+                <Route path="/home" element={<Home/>}/>
                 <Route path="/workout/:id/update"
                        element={<UpdateWorkout workout={workout} handleUpdatedWorkout={handleUpdatedWorkout}/>}/>
                 <Route path="/workout" element={<WorkoutGallery workouts={workouts}/>}/>
