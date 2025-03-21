@@ -13,7 +13,7 @@ export default function Header() {
         <nav className={"nav-bar"}>
 
             <button className={`nav-item ${isActive("/")}`} onClick={
-                () => { navigate("/") }
+                () => { navigate("/home") }
             }>Home</button>
 
             <button

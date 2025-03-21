@@ -8,11 +8,14 @@ import WorkoutGallery from "./components/WorkoutGallery.tsx";
 import {Route, Routes, useNavigate} from "react-router";
 import WorkoutDetails from "./components/WorkoutDetails.tsx";
 import UpdateWorkout from "./components/UpdateWorkout.tsx";
+import Login from "./components/Login.tsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 
 export default function App() {
 
     const [workouts, setWorkouts] = useState<Workout[]>([])
     const [workout, setWorkout] = useState<Workout>()
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
     const navigate = useNavigate();
 
@@ -20,6 +23,14 @@ export default function App() {
         console.log("First time rendering App")
         loadWorkouts()
     }, [])
+
+    function getMe() {
+        axios.get("/api/auth/me")
+            .then(() => setIsLoggedIn(true))
+            .catch(e => console.error(e))
+    }
+
+    useEffect(getMe, []);
 
     const loadWorkouts = () => {
         console.log("Load Workouts")
@@ -58,12 +69,15 @@ export default function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/workout/:id/update"
-                   element={<UpdateWorkout workout={workout} handleUpdatedWorkout={handleUpdatedWorkout}/>}/>
-            <Route path="/workout" element={<WorkoutGallery workouts={workouts}/>}/>
-            <Route path="/workout/:id" element={<WorkoutDetails handleWorkout={handleWorkout} workout={workout}/>}/>
-            <Route path="/addworkout" element={<AddWorkout saveWorkout={saveWorkout}/>}/>
+            <Route path="/" element={<Login/>}/>
+            <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn}/>}>
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/workout/:id/update"
+                       element={<UpdateWorkout workout={workout} handleUpdatedWorkout={handleUpdatedWorkout}/>}/>
+                <Route path="/workout" element={<WorkoutGallery workouts={workouts}/>}/>
+                <Route path="/workout/:id" element={<WorkoutDetails handleWorkout={handleWorkout} workout={workout}/>}/>
+                <Route path="/addworkout" element={<AddWorkout saveWorkout={saveWorkout}/>}/>
+            </Route>
         </Routes>
     )
 
