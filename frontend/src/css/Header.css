@@ -1,0 +1,47 @@
+.container-home-image {
+
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    overflow: hidden;
+    height: 90vh;
+    > img {
+        width: 100vw;
+    }
+}
+
+.logo {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 300px;
+    height: auto;
+}
+
+.slogan-title {
+    color: #2b9fd7;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #128ac3;
+}
+
+button {
+    text-transform: uppercase;
+    background-color: #128ac3;
+    color: #FFFFFF;
+    width: 200px;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
+}
+
+.nav-item {
+    margin: 5px;
+}
+
+button.nav-item.active {
+    background-color: #eb2733;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #2b9fd7; /* Etwas hellere Version von #1a4e7b */
+}

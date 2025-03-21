@@ -4,6 +4,6 @@ public record Workout(
         String id,
         String description,
         String workoutName,
-        String imagePath
+         String imagePath
         ) {
 }
