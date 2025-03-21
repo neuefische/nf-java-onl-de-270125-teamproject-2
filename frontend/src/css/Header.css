@@ -18,10 +18,6 @@
     height: auto;
 }
 
-.nav-item {
-    margin: 5px;
-}
-
 .slogan-title {
     color: #2b9fd7;
     -webkit-text-stroke-width: 2px;
@@ -34,7 +30,16 @@ button {
     color: #FFFFFF;
     width: 200px;
     cursor: pointer;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.8s ease;
+}
+
+.nav-item {
+    margin: 5px;
+}
+
+button.nav-item.active {
+    background-color: #eb2733;
+    font-weight: bold;
 }
 
 button:hover {
