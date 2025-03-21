@@ -46,7 +46,7 @@ export default function App() {
     }
     console.log("After Request")
 
-    async function saveWorkout(workout: Workout) {
+    function saveWorkout(workout: Workout) {
         axios.post("/api/workout", workout)
             .then((response) => {
                 console.log(response)
