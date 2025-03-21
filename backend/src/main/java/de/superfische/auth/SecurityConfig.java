@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // bei username password muss das csrf definitiv enabled sein, bei oauth wird das für uns geregelt
-                .csrf(AbstractHttpConfigurer::disable) //cross site reforgery token, gegen hacker, anfrage muss immer vom selben host kommen
+                .csrf(AbstractHttpConfigurer::disable) // Compliant //cross site reforgery token, gegen hacker, anfrage muss immer vom selben host kommen
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/auth/me").permitAll()
                         .anyRequest().authenticated()
