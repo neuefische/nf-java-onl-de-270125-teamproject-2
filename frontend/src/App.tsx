@@ -15,6 +15,7 @@ export default function App() {
         console.log("First time rendering App")
         loadWorkouts()
     }, [])
+
     const loadWorkouts = () => {
         console.log("Load Workouts")
         axios.get("/api/workout")
@@ -27,18 +28,19 @@ export default function App() {
                 console.log(errorResponse)
             })
     }
-        console.log("After Request")
+    console.log("After Request")
 
-        function saveWorkout(workout: Workout) {
-            axios.post("/api/workout", workout)
-                .then((response) => {
-                    console.log(response)
-                })
-                .catch((errorResponse) => {
-                    console.log(errorResponse)
-                })
+    function saveWorkout(workout: Workout) {
+        axios.post("/api/workout", workout)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((errorResponse) => {
+                console.log(errorResponse)
+            })
 
-        }
+        loadWorkouts() // Gregor: Is this okay for all team members? And: It does not work! :-(
+    }
 
         return (
                 <Routes>
