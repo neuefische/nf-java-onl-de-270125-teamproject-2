@@ -1,0 +1,9 @@
+.workout-gallery {
+    display: flex;
+    flex-direction: row;
+    gap: 16px; /* Abstand zwischen Workouts */
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 16px;
+}

@@ -9,8 +9,13 @@
 .logo:hover {
   filter: drop-shadow(0 0 2em #2b9fd7aa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #128ac3aa);
-}
 
+.logo {
+  position: static;
+  margin-left: 80px;
+  background-attachment: scroll;
+  max-width: 160px;
+  max-height: 160px;
+  transition: filter 300ms;
+}
 

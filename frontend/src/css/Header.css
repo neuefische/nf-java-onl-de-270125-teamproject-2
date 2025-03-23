@@ -5,19 +5,14 @@
     border-radius:20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.container-home-image img:hover {
-    transform: scale(1.05);
-}
 
 .container-home-image {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-
     overflow: hidden;
     height: 100vh;
     padding: 50px;
-    box-sizing: border-box;
 }
 
 .logo-container {
@@ -30,20 +25,18 @@
     overflow: hidden;
 }
 
-.logo {
-    position: static;
-    margin-right: 200px;
-    background-attachment: scroll;
-    max-width: 160px;
-    max-height: 160px;
-    width: auto;
-    height: auto;
-    will-change: filter;
-    transition: filter 300ms;
-}
-
 header {
     position: static;
     padding: 20px;
     box-sizing: border-box;
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    position: relative;
+    letter-spacing: 10px;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }
