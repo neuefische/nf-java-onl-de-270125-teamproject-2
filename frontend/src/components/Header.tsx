@@ -9,7 +9,8 @@ export default function Header() {
     return (
     <header>
 
-        <h1 className={"slogan-title"}>Super-Fish: Fitness from the Water!</h1>
+        <h1 className={"slogan-title"}>Superfishe
+            <br/>Fitness from the Water!</h1>
         <nav className={"nav-bar"}>
 
             <button className={`nav-item ${isActive("/")}`} onClick={
